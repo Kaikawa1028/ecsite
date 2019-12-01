@@ -1,0 +1,50 @@
+openapi: 3.0.0
+info:
+  title: kurasel api
+  version: '1.0'
+  description: kurasel api
+  contact:
+    name: Sample
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /login:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hus_multiple_estate:
+                    type: boolean
+                    example: 'true'
+                  user_id:
+                    type: integer
+                    example: '2'
+                  token:
+                    type: string
+                    example: fa3432
+      operationId: get-login
+      description: kuraselサービスにログインする。
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+        description: ''
+components:
+  schemas: {}
