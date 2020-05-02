@@ -40,4 +40,5 @@ Route::group(['prefix' => 'admin'], function() {
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     Route::post('logout',   'Admin\LoginController@logout')->name('admin.logout');
     Route::get('/',      'Admin\HomeController@index')->name('admin.home');
+    Route::post('/import_csv', 'Admin\HomeController@importCsv')->name('admin.import.csv');
 });
