@@ -64,6 +64,21 @@
             </div>
         </nav>
         <main class="py-4">
+            @if (session('flash_message'))
+                <div class="bg-success text-left py-3 mb-3">
+                    {{ session('flash_message') }}
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="text-left alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             @yield('content')
         </main>
     </div>
