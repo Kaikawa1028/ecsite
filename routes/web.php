@@ -34,11 +34,13 @@ Route::post('/buy', 'BuyController@store');
 Route::group(['prefix' => 'admin'], function() {
     Route::get('login',     'Admin\LoginController@showLoginForm')->name('admin.login');
     Route::post('login',    'Admin\LoginController@login');
-    Route::get('/',      'Admin\HomeController@index')->name('admin.home');
+    Route::get('/',      'Admin\AdminController@index')->name('admin.home');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     Route::post('logout',   'Admin\LoginController@logout')->name('admin.logout');
-    Route::get('/',      'Admin\HomeController@index')->name('admin.home');
-    Route::post('/import_csv', 'Admin\HomeController@importCsv')->name('admin.import.csv');
+    Route::get('/',      'Admin\AdminController@index')->name('admin.home');
+    Route::get('/sale',      'Admin\AdminController@sale')->name('admin.sale');
+    Route::post('/import_csv', 'Admin\AdminController@importCsv')->name('admin.import.csv');
+    Route::get('/export_csv', 'Admin\AdminController@exportCsv')->name('admin.export.csv'); 
 });
