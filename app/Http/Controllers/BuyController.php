@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CartItem;
+use App\Sale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\Buy;
@@ -27,7 +28,27 @@ class BuyController extends Controller
     {
         if( $request->has('post') ){
             Mail::to(Auth::user()->email)->send(new Buy());
-            CartItem::where('user_id', Auth::id())->delete();
+
+            $cart_items = CartItem::with('item')->where('user_id', Auth::id())->get();
+            try {
+                \DB::beginTransaction();
+                foreach ($cart_items as $cart_item) {
+
+                    $sale = new Sale();
+                    $sale->user_id = $cart_item->user_id;
+                    $sale->item_id = $cart_item->item_id;
+                    $sale->quantity = $cart_item->quantity;
+                    $sale->amount = $cart_item->item->amount;
+                    $sale->save();
+
+                    $cart_item->delete();
+                }
+                \DB::commit();
+            } catch (\Exception $e) {
+                \DB::rollback();
+                \Log::error($e->getMessage());
+                //ホントはここでエラー画面に返すべきだけどね；；
+            }
             return view('buy/complete');
         }
         $request->flash();
