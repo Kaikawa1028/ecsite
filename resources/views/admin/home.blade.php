@@ -14,7 +14,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <p><a href="">売り上げ管理画面へ</a></p>
+                    <p><a href="{{ route('admin.sale') }}">売り上げ管理画面へ</a></p>
                 </div>
             </div>
             <div class="card">

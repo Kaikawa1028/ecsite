@@ -15,4 +15,9 @@ class Item extends Model
             'updated_at'
         ];
     }
+
+    public function cartItems()
+    {
+        return $this->hasMany('App\CartItem');
+    }
 }
