@@ -1,4 +1,5 @@
 <div>
+    {{ $user->name }} 様
     これは{{ config('app.name', 'Laravel') }}のテストメールです。
 </div>
 <div>

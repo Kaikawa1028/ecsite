@@ -16,9 +16,9 @@ class Buy extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -28,6 +28,8 @@ class Buy extends Mailable
      */
     public function build()
     {
-        return $this->view('buy.mail');
+        return $this->view('buy.mail')
+                    ->subject('This is a test mail')
+                    ->with(['user' => $this->user]);
     }
 }

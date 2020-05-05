@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CartItem;
+use App\Events\ItemSold;
 use App\Sale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,7 @@ class BuyController extends Controller
     public function store(Request $request)
     {
         if( $request->has('post') ){
-            Mail::to(Auth::user()->email)->send(new Buy());
+            event(new ItemSold(Auth::user()));
 
             $cart_items = CartItem::with('item')->where('user_id', Auth::id())->get();
             try {
