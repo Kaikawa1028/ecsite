@@ -15,11 +15,11 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/', 'ItemController@index');
+Route::get('/', 'ItemController@index')->middleware('verified');
 Route::get('/stream', 'ItemController@stream');
 Route::get('/item/{item}', 'ItemController@show');
 
